@@ -102,7 +102,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     ),
                     child: Center(
                       child: Image.asset(
-                        KImages.OCRPROLogo,
+                        KImages.ocrProLogo,
                         width: 150.w,
                         height: 150.h,
                       ),

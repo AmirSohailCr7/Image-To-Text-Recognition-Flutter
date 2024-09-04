@@ -67,7 +67,7 @@ class TopApplicationBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
               child: Image.asset(
-                KImages.OCRPROLogo,
+                KImages.ocrProLogo,
                 height: 100.h,
                 width: 80.h,
               ),

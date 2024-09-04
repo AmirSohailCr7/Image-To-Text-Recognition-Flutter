@@ -1,6 +1,6 @@
 class KImages{
   //logo image
-  static const String OCRPROLogo = "assets/OCRPRO.png";
+  static const String ocrProLogo = "assets/OCRPRO.png";
   // icons
   static const String logOut= "assets/Logout.png";
 
