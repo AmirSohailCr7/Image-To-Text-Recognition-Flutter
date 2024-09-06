@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigationPage() async {
     bool hasSeenOnboarding = await SharedPreferencesHelper.hasSeenOnboarding();
     if (hasSeenOnboarding) {
-      Navigator.pushReplacementNamed(context, RouteConstants.onboardingScreen);
+      Navigator.pushReplacementNamed(context, RouteConstants.dashboardScreen);
     } else {
       Navigator.pushReplacementNamed(context, RouteConstants.onboardingScreen);
     }

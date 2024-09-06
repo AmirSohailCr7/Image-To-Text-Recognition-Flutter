@@ -7,19 +7,15 @@ import 'package:imagetextrecognition/route/route_constants.dart';
 import 'package:imagetextrecognition/route/routes.dart';
 
 class MyApp extends StatelessWidget {
-
-  const MyApp({super.key,});
+  const MyApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: KColors.blackColor,
-      statusBarIconBrightness: Brightness.light,
-    ));
     ScreenUtil.init(context);
-
     return ScreenUtilInit(
       builder: ((context, child) {
         return MaterialApp(
@@ -28,8 +24,8 @@ class MyApp extends StatelessWidget {
             const upperLimit = 0.9;
 
             final mediaQueryData = MediaQuery.of(context);
-            final scale = mediaQueryData.textScaler.clamp(
-                minScaleFactor: lowerLimit, maxScaleFactor: upperLimit);
+            final scale = mediaQueryData.textScaler
+                .clamp(minScaleFactor: lowerLimit, maxScaleFactor: upperLimit);
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaler: scale),
               child: child!,
@@ -40,11 +36,11 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: KColors.whiteColor,
             scaffoldBackgroundColor: Colors.white,
-            dialogTheme: DialogTheme(
+            dialogTheme: const DialogTheme(
               backgroundColor: Colors.white,
               surfaceTintColor: Colors.white,
             ),
-            cardTheme: CardTheme(
+            cardTheme: const CardTheme(
               surfaceTintColor: Colors.white,
             ),
             bottomSheetTheme: BottomSheetThemeData(

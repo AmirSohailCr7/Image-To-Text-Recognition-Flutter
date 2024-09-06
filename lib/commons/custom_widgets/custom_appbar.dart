@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Import the services package for SystemNavigator
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imagetextrecognition/commons/colors.dart';
 import 'package:imagetextrecognition/commons/image_text_strings.dart';
@@ -8,7 +8,7 @@ class TopApplicationBar extends StatelessWidget implements PreferredSizeWidget {
   const TopApplicationBar({
     super.key,
     this.title = "",
-    this.showBackButton = false, // Add a parameter to control the back button visibility
+    this.showBackButton = false,
   });
 
   @override
@@ -20,18 +20,18 @@ class TopApplicationBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-       decoration: const BoxDecoration(
-            color: KColors.blackColor,
-            gradient: LinearGradient(
-              colors: [
-                KColors.primaryColor,
-                KColors.secondaryColor,
-              ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              tileMode: TileMode.mirror,
-            ),
-          ),
+      decoration: const BoxDecoration(
+        color: KColors.blackColor,
+        gradient: LinearGradient(
+          colors: [
+            KColors.primaryColor,
+            KColors.secondaryColor,
+          ],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          tileMode: TileMode.mirror,
+        ),
+      ),
       child: AppBar(
         toolbarHeight: 150.h,
         automaticallyImplyLeading: true,
@@ -48,30 +48,30 @@ class TopApplicationBar extends StatelessWidget implements PreferredSizeWidget {
                   Navigator.of(context).pop();
                 },
               ),
-               if (!showBackButton)
-            Container(
+            if (!showBackButton)
+              Container(
                 width: 40.w,
-                        height: 55.h,
-                        margin: EdgeInsets.symmetric(horizontal: 12.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: KColors.blackColor,
-                          gradient: LinearGradient(
-                            colors: [
-                              KColors.secondaryColor,
-                              KColors.secondaryColor,
-                            ],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            tileMode: TileMode.mirror,
-                          ),
-                        ),
-              child: Image.asset(
-                KImages.ocrProLogo,
-                height: 100.h,
-                width: 80.h,
+                height: 55.h,
+                margin: EdgeInsets.symmetric(horizontal: 12.w),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: KColors.blackColor,
+                  gradient: const LinearGradient(
+                    colors: [
+                      KColors.primaryColor,
+                      KColors.secondaryColor,
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    tileMode: TileMode.mirror,
+                  ),
+                ),
+                child: Image.asset(
+                  KImages.ocrProLogo,
+                  height: 100.h,
+                  width: 80.h,
+                ),
               ),
-            ),
             Text(
               title,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -79,7 +79,7 @@ class TopApplicationBar extends StatelessWidget implements PreferredSizeWidget {
             )
           ],
         ),
-        leadingWidth:250.h, 
+        leadingWidth: 250.h,
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 2.w),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imagetextrecognition/commons/colors.dart';
 import 'package:imagetextrecognition/commons/custom_widgets/custom_button.dart';
 import 'package:imagetextrecognition/commons/image_text_strings.dart';
 import 'package:imagetextrecognition/commons/sharedPreference/shared-preference.dart';
 import 'package:imagetextrecognition/onboarding/widgets/onboarding_content.dart';
+import 'package:imagetextrecognition/route/route_constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -31,13 +31,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
         controller.forward(from: 0.0);
       }
     });
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: KColors.lightgreyColor,
-      statusBarIconBrightness: Brightness.dark,
-    ));
     _pageController.addListener(() {
       setState(() {
         currentPage = _pageController.page!.round();
+        debugPrint(currentPage.toString());
       });
     });
 
@@ -63,7 +60,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
 
   Future<void> _navigateToDashboard() async {
     await SharedPreferencesHelper.setOnboardingSeen(true);
-    Navigator.pushReplacementNamed(context, '/dashboard');
+    Navigator.pushReplacementNamed(context, RouteConstants.dashboardScreen);
   }
 
   @override
@@ -90,7 +87,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: KColors.blackColor,
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [
                           KColors.primaryColor,
                           KColors.secondaryColor,
@@ -121,14 +118,27 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                             .copyWith(fontWeight: FontWeight.w300),
                         textAlign: TextAlign.center,
                       ),
-                      Text(
-                        ' OCRPRO',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge!
-                            .copyWith(fontWeight: FontWeight.w600),
-                        textAlign: TextAlign.center,
-                      ),
+                      ShaderMask(
+                        shaderCallback: (bounds) => const LinearGradient(
+                          colors: [
+                            KColors.primaryColor,
+                            KColors.secondaryColor
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds),
+                        child: Text(
+                          'OCRPRO',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge!
+                              .copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors
+                                      .white), // Set color to white for masking
+                          textAlign: TextAlign.center,
+                        ),
+                      )
                     ],
                   ),
                 ],
@@ -153,7 +163,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     lottieAnimation: KImages.lottieOnboardingTwo,
                     heading: 'Say Goodbye to Manual Typing',
                     subHeading:
-                        'Our appp uses AI-powered text recognition to convert images into text, saving you time and effort',
+                        'Our app uses AI-powered text recognition to convert images into text, saving you time and effort.',
                     controller: controller,
                     imageHeight: 250.h,
                     gapHeight: 10.h,
@@ -162,7 +172,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     lottieAnimation: KImages.lottieOnboardingThree,
                     heading: 'Where Images Meet Text',
                     subHeading:
-                        'Discover the power of automatic text detection',
+                        'Discover the power of automatic text detection.',
                     controller: controller,
                     imageHeight: 300.h,
                     gapHeight: 25.h,
@@ -189,16 +199,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     height: 48.h,
                   ),
                   PrimaryThemedButton(
-                    text: 'Next',
+                    text: currentPage == 2 ? 'Finish' : 'Next',
                     onPressed: _onNextPressed,
                   ),
                   SizedBox(
                     height: 16.h,
                   ),
-                  SecondaryOutLinedButton(
-                    text: 'Skip',
-                    onPressed: _navigateToDashboard,
-                  ),
+                  if (currentPage != 2)
+                    SecondaryOutLinedButton(
+                      text: 'Skip',
+                      onPressed: _navigateToDashboard,
+                    ),
                 ],
               ),
             )

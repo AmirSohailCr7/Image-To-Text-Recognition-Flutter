@@ -22,26 +22,28 @@ class PrimaryThemedButton extends StatelessWidget {
           constraints: BoxConstraints(
               maxWidth: 600.w,
               minWidth: 300.w,
-            minHeight: 40.h,
-            maxHeight: 40.h
-          ),
+              minHeight: 40.h,
+              maxHeight: 40.h),
           decoration: BoxDecoration(
             color: KColors.primaryColor,
             borderRadius: BorderRadius.circular(10),
-              gradient:const LinearGradient(
+            gradient: const LinearGradient(
               colors: [
-              KColors.primaryColor,
-              KColors.secondaryColor,
+                KColors.primaryColor,
+                KColors.secondaryColor,
               ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
               tileMode: TileMode.mirror,
             ),
           ),
           child: Center(
             child: Text(
               text,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(color: KColors.whiteColor, letterSpacing: .5),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelLarge!
+                  .copyWith(color: KColors.whiteColor, letterSpacing: .5),
             ),
           ),
         ),
@@ -80,7 +82,10 @@ class CompleteWhiteButton extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(color: KColors.secondaryColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall!
+                  .copyWith(color: KColors.secondaryColor),
             ),
           ),
         ),
@@ -110,8 +115,7 @@ class SecondaryOutLinedButton extends StatelessWidget {
               maxWidth: 600.w,
               minWidth: 300.w,
               minHeight: 40.h,
-              maxHeight: 40.h
-          ),
+              maxHeight: 40.h),
           height: 40.h,
           decoration: BoxDecoration(
             color: KColors.whiteColor,
@@ -135,4 +139,3 @@ class SecondaryOutLinedButton extends StatelessWidget {
     );
   }
 }
-
