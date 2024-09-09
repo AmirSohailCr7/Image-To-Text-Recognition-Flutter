@@ -18,6 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   File? _selectedImage;
   final ImagePicker _picker = ImagePicker();
   Future<String>? _extractedTextFuture;
+  String? _extractedText;
 
   Future<void> _pickImage(ImageSource source) async {
     final XFile? pickedFile = await _picker.pickImage(source: source);
@@ -25,9 +26,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (pickedFile != null) {
       setState(() {
         _selectedImage = File(pickedFile.path);
-        // Removed the text extraction here
-        _extractedTextFuture =
-            null; // Reset the text display until "Process" is pressed
+        _extractedText = null;
+        _extractedTextFuture = null;
       });
     }
   }
@@ -42,6 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _clearImage() {
     setState(() {
       _selectedImage = null;
+      _extractedText = null;
       _extractedTextFuture = null;
     });
   }
@@ -52,8 +53,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final filePath = '${directory.path}/Image_Text_downloaded.txt';
     final file = File(filePath);
     await file.writeAsString(text);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('File downloaded to $filePath'),
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('File ''Image_Text_downloaded.txt'' saved to the Download folder.'),
     ));
   }
 
@@ -90,12 +91,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     setState(() {
                       _extractedTextFuture =
                           getImageTotext(_selectedImage!.path);
+                      _extractedTextFuture!.then((value) {
+                        _extractedText = value;
+                      });
                     });
                   }
                 },
-                onCopy: _copyToClipboard,
-                onDownload: _downloadText,
-              ),
+                onCopy: (text) {
+                  if (_extractedText != null) {
+                    _copyToClipboard(_extractedText!);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('No text available to copy.'),
+                    ));
+                  }
+                },
+                onDownload: (text) {
+                  if (_extractedText != null) {
+                    _downloadText(_extractedText!);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('No text available to download.'),
+                    ));
+                  }
+                },
+              )
             ],
           ),
         ),
